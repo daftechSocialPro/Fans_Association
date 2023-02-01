@@ -1,0 +1,1328 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.5
+-- Dumped by pg_dump version 14.5
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: Advertisements; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."Advertisements" (
+    "ID" uuid NOT NULL,
+    "Name" text,
+    "Description" text,
+    "AdPhoto" text,
+    "FromDate" timestamp without time zone NOT NULL,
+    "ToDate" timestamp without time zone NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."Advertisements" OWNER TO sa;
+
+--
+-- Name: DefafiMahbers; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."DefafiMahbers" (
+    "ID" uuid NOT NULL,
+    name text,
+    "websiteAdress" text,
+    "establishedDate" text,
+    logo text,
+    description text,
+    "UserId" uuid NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."DefafiMahbers" OWNER TO sa;
+
+--
+-- Name: Degafi; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."Degafi" (
+    "ID" uuid NOT NULL,
+    "MahberId" uuid NOT NULL,
+    "Name" text,
+    "DegafiSettingId" uuid NOT NULL,
+    "UserPhoto" text,
+    "Description" text,
+    "BirthDate" text,
+    "IsActive" boolean NOT NULL,
+    "InActiveDescription" text,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "PhoneNumber" text
+);
+
+
+ALTER TABLE public."Degafi" OWNER TO sa;
+
+--
+-- Name: DegafiMahberMembers; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."DegafiMahberMembers" (
+    "ID" uuid NOT NULL,
+    "DegafiMahberId" uuid NOT NULL,
+    name text,
+    "position" text,
+    photo text,
+    "Description" text,
+    "birthDate" text,
+    "isActive" boolean NOT NULL,
+    "fromDate" text,
+    "toDate" text,
+    "inActiveDescription" text,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."DegafiMahberMembers" OWNER TO sa;
+
+--
+-- Name: DegafiSettings; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."DegafiSettings" (
+    "ID" uuid NOT NULL,
+    "mahberId" uuid NOT NULL,
+    name text,
+    money real NOT NULL,
+    "paymentStyle" integer NOT NULL,
+    description text,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."DegafiSettings" OWNER TO sa;
+
+--
+-- Name: MacthStats; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."MacthStats" (
+    "ID" uuid NOT NULL,
+    "MatchID" uuid,
+    "MatchId" uuid NOT NULL,
+    "PlayerId" uuid NOT NULL,
+    "PlayerDid" integer NOT NULL,
+    "Minute" text,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "PlayerID" uuid,
+    "TeamId" uuid DEFAULT '00000000-0000-0000-0000-000000000000'::uuid NOT NULL
+);
+
+
+ALTER TABLE public."MacthStats" OWNER TO sa;
+
+--
+-- Name: MahberExecutives; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."MahberExecutives" (
+    "ID" uuid NOT NULL,
+    "MahberId" uuid NOT NULL,
+    "Name" text,
+    "Position" text,
+    "UserPhoto" text,
+    "Description" text,
+    "BirthDate" text,
+    "IsActive" boolean NOT NULL,
+    "FromDate" text,
+    "ToDate" text,
+    "InActiveDescription" text,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "MahberID" uuid
+);
+
+
+ALTER TABLE public."MahberExecutives" OWNER TO sa;
+
+--
+-- Name: MatchWeeks; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."MatchWeeks" (
+    "ID" uuid NOT NULL,
+    "matchWeek" integer NOT NULL,
+    "isMatchWeek" boolean NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."MatchWeeks" OWNER TO sa;
+
+--
+-- Name: Matches; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."Matches" (
+    "ID" uuid NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "Game" integer DEFAULT 0 NOT NULL,
+    "MatchDate" timestamp without time zone DEFAULT '-infinity'::timestamp with time zone NOT NULL,
+    "SeasonsId" uuid DEFAULT '00000000-0000-0000-0000-000000000000'::uuid NOT NULL,
+    "Team1Id" uuid DEFAULT '00000000-0000-0000-0000-000000000000'::uuid NOT NULL,
+    "Team1Score" integer DEFAULT 0 NOT NULL,
+    "Team2Id" uuid DEFAULT '00000000-0000-0000-0000-000000000000'::uuid NOT NULL,
+    "Team2Score" integer DEFAULT 0 NOT NULL,
+    "MatchWeekId" uuid DEFAULT '00000000-0000-0000-0000-000000000000'::uuid NOT NULL
+);
+
+
+ALTER TABLE public."Matches" OWNER TO sa;
+
+--
+-- Name: News; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."News" (
+    "ID" uuid NOT NULL,
+    title text,
+    "subTitle" text,
+    img text,
+    description text,
+    "isHeadLine" boolean NOT NULL,
+    "isApproved" boolean NOT NULL,
+    "userId" uuid NOT NULL,
+    "NewsType" integer NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."News" OWNER TO sa;
+
+--
+-- Name: PlayerHistories; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."PlayerHistories" (
+    "ID" uuid NOT NULL,
+    "PlayerID" uuid,
+    "PlayerId" uuid NOT NULL,
+    "FromTeamId" uuid NOT NULL,
+    "ToTeamId" uuid NOT NULL,
+    "Date" timestamp without time zone NOT NULL,
+    "ContractLength" integer NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."PlayerHistories" OWNER TO sa;
+
+--
+-- Name: PlayerStats; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."PlayerStats" (
+    "ID" uuid NOT NULL,
+    "PlayerID" uuid,
+    "PlayerId" uuid NOT NULL,
+    "TeamId" uuid NOT NULL,
+    "Goals" integer NOT NULL,
+    "Assists" integer NOT NULL,
+    "YellowCard" integer NOT NULL,
+    "Minute" integer NOT NULL,
+    "RedCard" integer NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "MatchId" uuid DEFAULT '00000000-0000-0000-0000-000000000000'::uuid NOT NULL
+);
+
+
+ALTER TABLE public."PlayerStats" OWNER TO sa;
+
+--
+-- Name: Players; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."Players" (
+    "ID" uuid NOT NULL,
+    "FullName" text,
+    "PlayerImage" text,
+    "Height" real NOT NULL,
+    "Weight" real NOT NULL,
+    "CurrentTeamId" uuid NOT NULL,
+    "Postition" integer NOT NULL,
+    "BirthDate" timestamp without time zone NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "CurrentTeamID" uuid,
+    "Description" text,
+    "Nationality" text
+);
+
+
+ALTER TABLE public."Players" OWNER TO sa;
+
+--
+-- Name: SeasonTeams; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."SeasonTeams" (
+    "ID" uuid NOT NULL,
+    "TeamId" uuid NOT NULL,
+    "SeasonId" uuid NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."SeasonTeams" OWNER TO sa;
+
+--
+-- Name: Seasons; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."Seasons" (
+    "ID" uuid NOT NULL,
+    "Name" text,
+    "Year" integer NOT NULL,
+    "FromDate" text,
+    "ToDate" text,
+    "IsActive" boolean NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."Seasons" OWNER TO sa;
+
+--
+-- Name: SubscribedUsers; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."SubscribedUsers" (
+    "ID" uuid NOT NULL,
+    email text,
+    "subscribedDate" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."SubscribedUsers" OWNER TO sa;
+
+--
+-- Name: Teams; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."Teams" (
+    "ID" uuid NOT NULL,
+    "Name" text,
+    "ShortName" text,
+    "Logo" text,
+    "SeasonId" uuid NOT NULL,
+    "Played" integer NOT NULL,
+    "Win" integer NOT NULL,
+    "Draw" integer NOT NULL,
+    "Lost" integer NOT NULL,
+    "GoalForward" integer NOT NULL,
+    "GoalAgainst" integer NOT NULL,
+    "Point" integer NOT NULL,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."Teams" OWNER TO sa;
+
+--
+-- Name: TmretExecutives; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."TmretExecutives" (
+    "ID" uuid NOT NULL,
+    "TemretId" uuid NOT NULL,
+    "Name" text,
+    "Position" text,
+    "UserPhoto" text,
+    "Description" text,
+    "BirthDate" text,
+    "IsActive" boolean NOT NULL,
+    "FromDate" text,
+    "ToDate" text,
+    "InActiveDescription" text,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."TmretExecutives" OWNER TO sa;
+
+--
+-- Name: Users; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."Users" (
+    "ID" uuid NOT NULL,
+    "fullName" text,
+    email text,
+    "isActive" boolean NOT NULL,
+    "userRole" integer NOT NULL,
+    password text,
+    "createdBy" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."Users" OWNER TO sa;
+
+--
+-- Name: __EFMigrationsHistory; Type: TABLE; Schema: public; Owner: sa
+--
+
+CREATE TABLE public."__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL
+);
+
+
+ALTER TABLE public."__EFMigrationsHistory" OWNER TO sa;
+
+--
+-- Data for Name: Advertisements; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."Advertisements" ("ID", "Name", "Description", "AdPhoto", "FromDate", "ToDate", "createdBy", "createdAt", "updatedAt") FROM stdin;
+b3b349a8-47ae-4d13-8158-89697ac71544	anbessa	<p>ከ65ኛው ደቂቃ በኋላ ግን የጨዋታው መልክ እየተቀየረ የመጣ ሲሆን ሴፋክሲያኖች ደጋግመው ወደ ግብ የደረሱባቸው አጋጣሚዎች ታይተዋል። </p>	Assets/Advert_upload_photo/b3b349a8-47ae-4d13-8158-89697ac71544.jpg	2022-10-11 00:00:00	2022-10-03 00:00:00	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-17 15:50:42.896082	-infinity
+ebb7e680-8ae1-49bf-8d2c-6f84f8f543c9	meden	<p> በተለይም 77ኛው ደቂቃ ላይ ሀሽራፍ ሀቢቢሲ ያደረገው ለጎል የቀረበ ሙከራ ድንቅ ሆኖ በዋለው ሚኬል ሳማኬ ቅልጥፍና ግብ ከመሆን ድኗል። የቡድኑ ጫና እስከመጨረሻው ደቂቃ ቀጥሎ ወደ ፍፃሜው ሲቃረብ የቱኒዚያው ክለብ ሁለት ጊዜ ኳስ </p>	Assets/Advert_upload_photo/ebb7e680-8ae1-49bf-8d2c-6f84f8f543c9.jpg	2022-10-11 00:00:00	2022-10-04 00:00:00	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-17 15:59:17.44325	-infinity
+45a3f16e-fd5f-428d-bb5d-2da9fba2c575	Betika	\N	Assets/Advert_upload_photo/45a3f16e-fd5f-428d-bb5d-2da9fba2c575.png	2022-10-11 00:00:00	2022-10-21 00:00:00	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-18 15:45:30.566577	-infinity
+ad7f7941-597f-4644-ac9d-0e4c7063c3b8	Amole	\N	Assets/Advert_upload_photo/ad7f7941-597f-4644-ac9d-0e4c7063c3b8.jpg	2022-10-17 21:00:00	2022-10-28 21:00:00	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-26 12:45:48.336685	-infinity
+56c69929-0044-4946-a10e-f00916ea23ea	gofere	\N	Assets/Advert_upload_photo/56c69929-0044-4946-a10e-f00916ea23ea.jpg	2022-10-27 21:00:00	2022-10-27 21:00:00	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-26 12:46:00.702057	-infinity
+\.
+
+
+--
+-- Data for Name: DefafiMahbers; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."DefafiMahbers" ("ID", name, "websiteAdress", "establishedDate", logo, description, "UserId", "createdBy", "createdAt", "updatedAt") FROM stdin;
+dca7a737-3ee7-430c-84ab-bc0174b0ea4f	mahber mahber	mahber.com	2022-10-18	Assets/Mahber_Logo/dca7a737-3ee7-430c-84ab-bc0174b0ea4f.jpg	<p>mahbber </p>	7a752161-8940-4caf-aa77-b1c6469c14d2	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-17 08:38:51.807845	-infinity
+7fb95d39-6e83-4467-b739-dfdf39f13608	Mahber 3	Mahberweb.com	2022-10-19	Assets/Mahber_Logo/7fb95d39-6e83-4467-b739-dfdf39f13608.jpg	<p><em>ሚኬል ሳማኬ ድንቅ በነበረበት የካፍ ኮንፌዴሬሽን ዋንጫ 2ኛ ዙር ቅድመ ማጣሪያ የመልስ ጨዋታ ፋሲል ከነማ በሴፋክሲያን 1-0 ተሸንፏል።</em></p>	eeb5a311-7f5d-417f-a610-57d80d4c17ef	eeb5a311-7f5d-417f-a610-57d80d4c17ef	2022-10-17 16:23:53.429135	-infinity
+dd94985b-c970-4e9a-a976-574bb0ed2e81	Mahber 2	mahber2@web.com	2022-10-04	Assets/Mahber_Logo/dd94985b-c970-4e9a-a976-574bb0ed2e81.jpg	<p>ዓምና ሊጉን በሁለተኛ ደረጃ በማጠናቀቅ በካፍ ኮንፌዴሬሽን ዋንጫ ላይ ተሳታፊ የነበረው ፋሲል ከነማ ከቱኒዚያው ሴፋክሲያን ጋር ባህር ዳር ላይ ከነበረው የመጀመሪያ ጨዋታ ተከላካይ ክፍል ላይ አስቻለው ታመነን በመናፍ ዐወል በመተካት ብቻ ለመልሱ ግጥሚያ ወደ ሜዳ ገብቷል</p>	88c47da3-e414-48a0-8f2c-f831f1da845a	88c47da3-e414-48a0-8f2c-f831f1da845a	2022-10-17 16:25:03.868365	-infinity
+\.
+
+
+--
+-- Data for Name: Degafi; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."Degafi" ("ID", "MahberId", "Name", "DegafiSettingId", "UserPhoto", "Description", "BirthDate", "IsActive", "InActiveDescription", "createdBy", "createdAt", "updatedAt", "PhoneNumber") FROM stdin;
+8f6f7d47-9f93-4e4a-ae34-13f521e7af88	dca7a737-3ee7-430c-84ab-bc0174b0ea4f	dene	cdbc4bc7-6346-44e0-951f-514d5cf302e0	Assets/Degafi_upload_photo/8f6f7d47-9f93-4e4a-ae34-13f521e7af88.jpg	<p>ከ65ኛው ደቂቃ በኋላ ግን የጨዋታው መልክ እየተቀየረ የመጣ ሲሆን ሴፋክሲያኖች ደጋግመው ወደ ግብ የደረሱባቸው አጋጣሚዎች ታይተዋል። በተለይም 77ኛው ደቂቃ ላይ ሀሽራፍ ሀቢቢሲ ያደረገው ለጎል የቀረበ ሙከራ ድንቅ ሆኖ በዋለው ሚኬል ሳማኬ ቅልጥፍና ግብ ከመሆን ድኗል። የቡድኑ ጫና እስከመጨረሻው ደቂቃ ቀጥሎ ወደ ፍፃሜው ሲቃረብ የቱኒዚያው ክለብ ሁለት ጊዜ ኳስ እና መረብን ማገናኘት ቢችልም ከጨዋታ ውጪ በመሆኑ ተሽሮበት ጨዋታው በ1-0 ውጤት ተፈፅሟል።</p>	2022-10-03	t	\N	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-17 15:48:22.838477	-infinity	0911601703
+3ac86993-07dd-42c0-841a-6e3e3ae94554	dca7a737-3ee7-430c-84ab-bc0174b0ea4f	heermi	9f3c33a7-2cbc-4d5c-b999-1cea0bbd48d8	Assets/Degafi_upload_photo/3ac86993-07dd-42c0-841a-6e3e3ae94554.jpg	<p>ከ65ኛው ደቂቃ በኋላ ግን የጨዋታው መልክ እየተቀየረ የመጣ ሲሆን ሴፋክሲያኖች ደጋግመው ወደ ግብ የደረሱባቸው አጋጣሚዎች ታይተዋል። በተለይም 77ኛው ደቂቃ ላይ ሀሽራፍ ሀቢቢሲ ያደረገው ለጎል የቀረበ ሙከራ ድንቅ ሆኖ በዋለው ሚኬል ሳማኬ ቅልጥፍና ግብ ከመሆን ድኗል። የቡድኑ ጫና እስከመጨረሻው ደቂቃ ቀጥሎ ወደ ፍፃሜው ሲቃረብ የቱኒዚያው ክለብ ሁለት ጊዜ ኳስ እና መረብን ማገናኘት ቢችልም ከጨዋታ ውጪ በመሆኑ ተሽሮበት ጨዋታው በ1-0 ውጤት ተፈፅሟል።</p>	2022-10-03	t	\N	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-17 15:48:54.263668	-infinity	0919870929
+7dd50a74-36eb-42aa-908c-1d4ffc7c3b55	dca7a737-3ee7-430c-84ab-bc0174b0ea4f	kirubel Gizaw	9f3c33a7-2cbc-4d5c-b999-1cea0bbd48d8	Assets/Degafi_upload_photo/7dd50a74-36eb-42aa-908c-1d4ffc7c3b55.jpg	<p>sadfsa fsd fsdf</p>	2022-10-20	t	\N	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-19 16:41:19.703207	-infinity	0919870929
+aff21df9-df92-4e5a-80e7-58ad347d72da	7fb95d39-6e83-4467-b739-dfdf39f13608	asdf	66a47615-7da1-4945-affd-5438c563be1d	Assets/Degafi_upload_photo/aff21df9-df92-4e5a-80e7-58ad347d72da.jpg	<p>sadfsdf sdf</p>	2022-10-26	t	\N	eeb5a311-7f5d-417f-a610-57d80d4c17ef	2022-10-17 17:07:52.855048	-infinity	\N
+240a780c-43c7-40d6-b21b-0c36f012947b	dca7a737-3ee7-430c-84ab-bc0174b0ea4f	Denekew  Berihun	cdbc4bc7-6346-44e0-951f-514d5cf302e0	Assets/Executives_upload_photo/240a780c-43c7-40d6-b21b-0c36f012947b.jpg	<p>ዓምና ሊጉን በሁለተኛ ደረጃ በማጠናቀቅ በካፍ ኮንፌዴሬሽን ዋንጫ ላይ ተሳታፊ የነበረው ፋሲል ከነማ ከቱኒዚያው ሴፋክሲያን ጋር ባህር ዳር ላይ ከነበረው የመጀመሪያ ጨዋታ ተከላካይ ክፍል ላይ አስቻለው ታመነን በመናፍ ዐወል በመተካት ብቻ ለመልሱ ግጥሚያ ወደ ሜዳ ገብቷል።</p>	2022-10-11	t	\N	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-17 11:20:14.253864	-infinity	0983050628
+\.
+
+
+--
+-- Data for Name: DegafiMahberMembers; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."DegafiMahberMembers" ("ID", "DegafiMahberId", name, "position", photo, "Description", "birthDate", "isActive", "fromDate", "toDate", "inActiveDescription", "createdBy", "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- Data for Name: DegafiSettings; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."DegafiSettings" ("ID", "mahberId", name, money, "paymentStyle", description, "createdBy", "createdAt", "updatedAt") FROM stdin;
+cdbc4bc7-6346-44e0-951f-514d5cf302e0	dca7a737-3ee7-430c-84ab-bc0174b0ea4f	Premium	250	1	<p>premium premuim</p>	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-17 08:57:31.973562	-infinity
+9f3c33a7-2cbc-4d5c-b999-1cea0bbd48d8	dca7a737-3ee7-430c-84ab-bc0174b0ea4f	Gold	250	0	<p>12345</p>	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-17 09:09:35.412615	-infinity
+66a47615-7da1-4945-affd-5438c563be1d	7fb95d39-6e83-4467-b739-dfdf39f13608	asdf	20	1	<p>dfdfg</p>	eeb5a311-7f5d-417f-a610-57d80d4c17ef	2022-10-17 17:07:42.281469	-infinity
+b944b649-3978-43de-8acf-1a426eb6e1ed	dca7a737-3ee7-430c-84ab-bc0174b0ea4f	silver	100	1	<p>dfdgg</p>	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-19 15:54:58.293117	-infinity
+\.
+
+
+--
+-- Data for Name: MacthStats; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."MacthStats" ("ID", "MatchID", "MatchId", "PlayerId", "PlayerDid", "Minute", "createdBy", "createdAt", "updatedAt", "PlayerID", "TeamId") FROM stdin;
+d057833b-bf12-4624-9b63-bc7458188741	\N	2353cf05-51b3-4de1-841d-d111408e6dea	8deead41-dab6-4ca4-9029-ed19c307a4aa	2	4	00000000-0000-0000-0000-000000000000	2022-10-27 07:33:23.536125	-infinity	\N	65dfa00f-9683-4214-8a9a-0e7a7f954230
+8bf8dff1-5731-42fc-ae04-c5e6f2c2db58	\N	2353cf05-51b3-4de1-841d-d111408e6dea	8deead41-dab6-4ca4-9029-ed19c307a4aa	0	90	00000000-0000-0000-0000-000000000000	2022-10-27 07:40:44.490754	-infinity	\N	65dfa00f-9683-4214-8a9a-0e7a7f954230
+f32ebac8-39f1-42f1-b8c6-d246e2dea6ce	\N	782540de-9abd-4f77-a20e-a0c44c6f70d0	2b0c030d-b53c-4fc1-94ac-ca1f3c1123da	2	2	00000000-0000-0000-0000-000000000000	2022-10-27 07:03:21.24476	-infinity	\N	eea5b2a6-ce5b-4594-b93d-58d92ecbf631
+6667de78-3503-4a19-88e3-03d754507370	\N	782540de-9abd-4f77-a20e-a0c44c6f70d0	2b0c030d-b53c-4fc1-94ac-ca1f3c1123da	0	3	00000000-0000-0000-0000-000000000000	2022-10-27 07:03:40.273031	-infinity	\N	eea5b2a6-ce5b-4594-b93d-58d92ecbf631
+58ad7929-5d07-4751-9dff-07317b07e827	\N	782540de-9abd-4f77-a20e-a0c44c6f70d0	8deead41-dab6-4ca4-9029-ed19c307a4aa	3	6	00000000-0000-0000-0000-000000000000	2022-10-27 07:03:56.128163	-infinity	\N	65dfa00f-9683-4214-8a9a-0e7a7f954230
+7cfc424f-6739-4dcf-903e-3db00a806a8a	\N	782540de-9abd-4f77-a20e-a0c44c6f70d0	2b0c030d-b53c-4fc1-94ac-ca1f3c1123da	0	90	00000000-0000-0000-0000-000000000000	2022-10-27 07:04:37.569405	-infinity	\N	eea5b2a6-ce5b-4594-b93d-58d92ecbf631
+bb51cad5-cbab-46be-b591-b9743c9ade22	\N	782540de-9abd-4f77-a20e-a0c44c6f70d0	2b0c030d-b53c-4fc1-94ac-ca1f3c1123da	1	90	00000000-0000-0000-0000-000000000000	2022-10-27 07:04:49.832274	-infinity	\N	eea5b2a6-ce5b-4594-b93d-58d92ecbf631
+\.
+
+
+--
+-- Data for Name: MahberExecutives; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."MahberExecutives" ("ID", "MahberId", "Name", "Position", "UserPhoto", "Description", "BirthDate", "IsActive", "FromDate", "ToDate", "InActiveDescription", "createdBy", "createdAt", "updatedAt", "MahberID") FROM stdin;
+048aa42b-da11-45b8-8f7f-ffaa9a094065	dca7a737-3ee7-430c-84ab-bc0174b0ea4f	Habteyes Asfaw	Mahber Executives	Assets/Executives_upload_photo/048aa42b-da11-45b8-8f7f-ffaa9a094065.jpg	<p>የሲዳማ ቡና የቦርድ አመራሮች በትላንትናው ዕለት ከ8 ሰዓት እስከ ምሽቱ 2 ሰዓት ከአሰልጣኙ እና ቡድን መሪው ጋር ንግግር ያደረጉ ሲሆን በስብሰባው የአሰልጣኙ ጥቅማጥቅም ተከብሮ ከክለቡ እንዲለያዩ ቦርዱ በመወሰኑ በይፋ መለያየታቸውን በተለይ ሶከር ኢትዮጵያ አረጋግጣለች፡፡ የቡድን መሪው አቶ አሸብርም እንዲነሱ ተደርጓል።</p>	2022-10-03	t	2022-10-10	2022-10-10	\N	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-17 09:51:03.513602	-infinity	\N
+d4c87015-6fca-4499-a40a-5e99f935ed92	dd94985b-c970-4e9a-a976-574bb0ed2e81	Denekew Berihun	Executive	Assets/Executives_upload_photo/d4c87015-6fca-4499-a40a-5e99f935ed92.jpg	<p>ዓምና ሊጉን በሁለተኛ ደረጃ በማጠናቀቅ በካፍ ኮንፌዴሬሽን ዋንጫ ላይ ተሳታፊ የነበረው ፋሲል ከነማ ከቱኒዚያው ሴፋክሲያን ጋር ባህር ዳር ላይ ከነበረው የመጀመሪያ ጨዋታ ተከላካይ ክፍል ላይ አስቻለው ታመነን በመናፍ ዐወል በመተካት ብቻ ለመልሱ ግጥሚያ ወደ ሜዳ ገብቷል</p>	2022-10-11	t	2022-10-11	2022-10-21	\N	88c47da3-e414-48a0-8f2c-f831f1da845a	2022-10-17 16:42:01.584152	-infinity	\N
+9ee2a984-073b-486f-b244-24acdee27f8b	dd94985b-c970-4e9a-a976-574bb0ed2e81	Hermela Tesfaye	Executive	Assets/Executives_upload_photo/9ee2a984-073b-486f-b244-24acdee27f8b.jpg	<p>ዓምና ሊጉን በሁለተኛ ደረጃ በማጠናቀቅ በካፍ ኮንፌዴሬሽን ዋንጫ ላይ ተሳታፊ የነበረው ፋሲል ከነማ ከቱኒዚያው ሴፋክሲያን ጋር ባህር ዳር ላይ ከነበረው የመጀመሪያ ጨዋታ ተከላካይ ክፍል ላይ አስቻለው ታመነን በመናፍ ዐወል በመተካት ብቻ ለመልሱ ግጥሚያ ወደ ሜዳ ገብቷል</p>	2022-10-20	t	2022-10-19	2022-10-28	\N	88c47da3-e414-48a0-8f2c-f831f1da845a	2022-10-17 16:42:21.561325	-infinity	\N
+\.
+
+
+--
+-- Data for Name: MatchWeeks; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."MatchWeeks" ("ID", "matchWeek", "isMatchWeek", "createdBy", "createdAt", "updatedAt") FROM stdin;
+2670d9bc-1fe6-4dd2-8862-58fefd0b26ae	11	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 09:00:53.886652	-infinity
+2af37fb6-e552-4e4e-9ef6-5eaeefa1ec8b	12	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 09:08:29.689709	-infinity
+468994b3-8200-41db-a7ba-3444063cab65	8	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 09:00:39.052371	-infinity
+545f00fc-e9cf-4b40-913c-532280ec9615	7	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 09:00:35.261486	-infinity
+6bee0374-584d-4aee-86b3-a06b8f5152c4	4	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 08:26:50.352453	-infinity
+7d53061e-5343-4c2b-bdf9-f0397a4cb802	5	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 08:26:56.885526	-infinity
+7d61edc3-6764-4be6-90ab-24d57bbbec4d	9	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 09:00:42.863754	-infinity
+8dcee1cd-5653-4f6e-8581-8483d335d785	6	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 08:59:47.357145	-infinity
+a07906bd-162e-484b-8d8d-d6d75b33a9f7	3	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 08:24:36.932706	-infinity
+bad021e8-184a-43bd-aac7-59ed75749d59	1	t	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 08:19:27.867278	-infinity
+fdd4d7ef-dc5f-41e4-99ca-3da7adfc63cb	10	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 09:00:49.616244	-infinity
+fe7fdc64-182c-466b-9be2-5c376c2cf5b3	2	f	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 08:23:58.644245	-infinity
+\.
+
+
+--
+-- Data for Name: Matches; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."Matches" ("ID", "createdBy", "createdAt", "updatedAt", "Game", "MatchDate", "SeasonsId", "Team1Id", "Team1Score", "Team2Id", "Team2Score", "MatchWeekId") FROM stdin;
+782540de-9abd-4f77-a20e-a0c44c6f70d0	e9a7038c-77e1-402a-a1b3-c49ea6c62763	-infinity	-infinity	2	2022-10-27 02:00:00	5b5e231b-31c1-4901-938c-af6cd3bfee7c	eea5b2a6-ce5b-4594-b93d-58d92ecbf631	2	65dfa00f-9683-4214-8a9a-0e7a7f954230	0	bad021e8-184a-43bd-aac7-59ed75749d59
+a4708b05-a24c-452d-bf78-6e7b2272dbbb	e9a7038c-77e1-402a-a1b3-c49ea6c62763	-infinity	-infinity	2	2022-10-29 02:00:00	5b5e231b-31c1-4901-938c-af6cd3bfee7c	3b842c70-e5f6-49e7-ba5d-809d87161be9	0	2b097d63-919d-4e4b-9c28-348a170518b5	0	bad021e8-184a-43bd-aac7-59ed75749d59
+2353cf05-51b3-4de1-841d-d111408e6dea	e9a7038c-77e1-402a-a1b3-c49ea6c62763	-infinity	-infinity	2	2022-10-28 05:00:00	5b5e231b-31c1-4901-938c-af6cd3bfee7c	65dfa00f-9683-4214-8a9a-0e7a7f954230	1	2b097d63-919d-4e4b-9c28-348a170518b5	0	fe7fdc64-182c-466b-9be2-5c376c2cf5b3
+d1aaad1d-d695-4530-9de9-2d507be927da	e9a7038c-77e1-402a-a1b3-c49ea6c62763	-infinity	-infinity	2	2022-11-05 06:00:00	5b5e231b-31c1-4901-938c-af6cd3bfee7c	eea5b2a6-ce5b-4594-b93d-58d92ecbf631	0	3b842c70-e5f6-49e7-ba5d-809d87161be9	0	fe7fdc64-182c-466b-9be2-5c376c2cf5b3
+\.
+
+
+--
+-- Data for Name: News; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."News" ("ID", title, "subTitle", img, description, "isHeadLine", "isApproved", "userId", "NewsType", "createdBy", "createdAt", "updatedAt") FROM stdin;
+ce956480-e104-4aef-995e-b6672fd9b3a0	ሲዳማ ቡና አሠልጣኙን ከሦስት ጨዋታዎች በኋላ አሰናብቷል	በዘንድሮ የሊጉ ውድድር የመጀመሪያው ተሰናባች አሠልጣኝ ወንድማገኝ ተሾመ ሆኗል።	Assets/News_upload_photo/ce956480-e104-4aef-995e-b6672fd9b3a0.jpg	<p><em>በዘንድሮ የሊጉ ውድድር የመጀመሪያው ተሰናባች አሠልጣኝ ወንድማገኝ ተሾመ ሆኗል።</em></p><p>የ2015 የቤትኪንግ ኢትዮጵያ ፕሪምየር ሊግ በባህርዳር ከተማ እየተደረገ ሦስተኛ የጨዋታ ሳምንቱን ተሻግሯል፡፡ በሊጉ ተሳትፎን እያደረጉ ከሚገኙ ክለቦች መካከል አንዱ የሆነው ሲዳማ ቡና እስከ አሁን ባደረጋቸው ጨዋታዎች በሁለቱ ተሸንፎ በአንዱ ብቻ ነጥብ በመጋራት በደረጃ ሰንጠረዡ ግርጌ ላይ ከተቀመጠ በኋላ የክለቡ ቦርድ አሰልጣኝ ወንድማገኝ ተሾመን ወደ ሀዋሳ እንደጠራ ዘገባ ሰርተን ነበር፡፡ ክለቡን በረዳት አሰልጣኝነት ሲመሩ ከነበረበት ኃላፊነት ክረምት ላይ ወደ ዋና አሰልጣኝነት መንበር እድገት አግኝተው የነበሩት ወንድማገኝ ክለቡ እያስመዘገበ ካለው ውጤት መነሻነት ገና በውላቸው መባቻ በይፋ ከክለቡ ጋር መለያየታቸውን ሶከር ኢትዮጵያ ማረጋገጥ ችላለች፡፡</p><p><a href="https://betika.et/et/daily-jackpot?utm_medium=display&amp;utm_source=soccer-et&amp;utm_campaign=display_et_acq_amh_sb_daily_jackpot" rel="noopener noreferrer" target="_blank"><img src="https://soccerethiopia.net/wp-content/uploads/2022/09/Daily-Jackpot_900x110.png"></a></p><p>የሲዳማ ቡና የቦርድ አመራሮች በትላንትናው ዕለት ከ8 ሰዓት እስከ ምሽቱ 2 ሰዓት ከአሰልጣኙ እና ቡድን መሪው ጋር ንግግር ያደረጉ ሲሆን በስብሰባው የአሰልጣኙ ጥቅማጥቅም ተከብሮ ከክለቡ እንዲለያዩ ቦርዱ በመወሰኑ በይፋ መለያየታቸውን በተለይ ሶከር ኢትዮጵያ አረጋግጣለች፡፡ የቡድን መሪው አቶ አሸብርም እንዲነሱ ተደርጓል።&nbsp;</p><p>የክለቡ አመራሮች ከሁለቱ የስንብት ውሳኔ በዘለለ በሌሎች የክለቡ የኃላፊነት ቦታ ላይ ያሉ አካላትን ለማሰናበትም በሂደት ላይ መሆኑንም ጭምር ዝግጅት ክፍላችን ሰምታለች፡፡ ክለቡ አዲስ አሠልጣኝ እስኪሾም ድረስ ከኢትዮጵያ ቡና ጋር ከሚያደርገው ጨዋታ ጀምሮ በቀጣይ ባህር ዳር ላይ በሚደረጉ ሁለት ጨዋታዎች በረዳት አሠልጣኙ ቾንቤ ገብረህይወት እንደሚመራ ተጠቁሟል።</p>	f	f	7a752161-8940-4caf-aa77-b1c6469c14d2	0	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-17 09:53:07.743467	-infinity
+b4588c88-8420-4f0f-a1ff-9aa4f7f5eb48	አፄዎቹ ከአህጉራዊ ውድድር ውጪ ሆነዋል	ሚኬል ሳማኬ ድንቅ በነበረበት የካፍ ኮንፌዴሬሽን ዋንጫ 2ኛ ዙር ቅድመ ማጣሪያ የመልስ ጨዋታ ፋሲል ከነማ በሴፋክሲያን 1-0 ተሸንፏል።	Assets/News_upload_photo/b4588c88-8420-4f0f-a1ff-9aa4f7f5eb48.jpg	<p>ዓምና ሊጉን በሁለተኛ ደረጃ በማጠናቀቅ በካፍ ኮንፌዴሬሽን ዋንጫ ላይ ተሳታፊ የነበረው ፋሲል ከነማ ከቱኒዚያው ሴፋክሲያን ጋር ባህር ዳር ላይ ከነበረው የመጀመሪያ ጨዋታ ተከላካይ ክፍል ላይ አስቻለው ታመነን በመናፍ ዐወል በመተካት ብቻ ለመልሱ ግጥሚያ ወደ ሜዳ ገብቷል።</p><p><a href="https://betika.et/et/daily-jackpot?utm_medium=display&amp;utm_source=soccer-et&amp;utm_campaign=display_et_acq_amh_sb_daily_jackpot" rel="noopener noreferrer" target="_blank"><img src="https://soccerethiopia.net/wp-content/uploads/2022/09/Daily-Jackpot_900x110.png"></a></p><p>ጨዋታውን ከፍ ባለ ጫና የጀመሩት ሴፋክሲያኖች በተለይም በመጀመሪያዎቹ 20 ደቂቃዎች ተደጋጋሚ ከባድ ሙከራዎችን ማድረግ ችለዋል። በአንፃሩ በአመዛኙ በራሳቸው ሜዳ ያሳለፉት ፋሲሎች በሁለት አጋጣሚዎች ከቀኝ መስመር ለፍቃዱ ዓለሙ ካሻገሯቸው ኳሶች ብቻ ወደ ግብ መድረስ ችለው ነበር።</p><p>በአጋማሹ በድምሩ አምስት ኢላማቸውን የጠበቁ ሙከራዎችን አድርገው ሁለት ጊዜ ደግሞ በግቡ ብረቶች ሙከራዎቻቸው የተመለሱባቸው ሴፋክሲያኖች 39ኛው ደቂቃ ላይ በለስ ቀንቷቸዋል። በፋሲል ሳጥን መግቢያ ላይ ሁሴን ዓሊ እና አብደላ አምሪ አንድ ሁለት በመቀባበል አምሪ ያሳለፈለትን ኢስማኤል ዲያኬይት በግራ ሳጥን ውስጥ ገብቶ ግብ አድርጎታል።</p><p> <a href="https://ethsoccer.files.wordpress.com/2022/10/img_20221015_212232_333.jpg" rel="noopener noreferrer" target="_blank"><img src="https://ethsoccer.files.wordpress.com/2022/10/img_20221015_212232_333.jpg"></a></p><p>ሴፋክሲያኖች ከጨዋታ ብልጫ ባሻገር በተከተሉት የኃይል አጨዋወት በአጋማሹ በአራት አጋጣሚዎች የፋሲል ተጫዋቾች የህክምና እርዳታ እንዲያገኙ የሚያስገድዱ ጥፋቶችን መስራታቸውን ተከትሎ አፄዎቹ ዕረፍት መውጫው ላይ ስሜታዊ ሆነው ከአርቢትሮች ጋር የቃላት ልውውጥ ሲያደርጉ ተስተውሏል።</p><p>ከዕረፍት መልስ ፋሲል ከነማ የተሻለ መረጋጋት ሲታይበት በኳስ ቁጥጥሩ ረገድ ብልጫ ወስዷል። ሆኖም 55ኛ ደቂቃ ላይ ሀብታሙ ገዛኸኝ በግራ ሳጥን ውስጥ ደርሶ ካደረገው ሙከራ ሌላ አደጋ መፍጠር አልቻሉም። በአንፃሩ የመልሶ ማጥቃት ቁመና የታየባቸው ሴፋክሲያኖች ሚኬል ሳማኬ ከግብ ክልሉ ወጥቶ ካራቃቸው ሁለት ኳሶች ውጪ በቀዳሚዎቹ 20 ደቂቃዎች ከመጀመሪያው አጋማሽ አንፃር ጫናቸው ቀንሶ ታይቷል።</p><p><img src="https://soccerethiopia.net/wp-content/uploads/2022/02/Gofere1d-002.jpg"></p><p>ከ65ኛው ደቂቃ በኋላ ግን የጨዋታው መልክ እየተቀየረ የመጣ ሲሆን ሴፋክሲያኖች ደጋግመው ወደ ግብ የደረሱባቸው አጋጣሚዎች ታይተዋል። በተለይም 77ኛው ደቂቃ ላይ ሀሽራፍ ሀቢቢሲ ያደረገው ለጎል የቀረበ ሙከራ ድንቅ ሆኖ በዋለው ሚኬል ሳማኬ ቅልጥፍና ግብ ከመሆን ድኗል። የቡድኑ ጫና እስከመጨረሻው ደቂቃ ቀጥሎ ወደ ፍፃሜው ሲቃረብ የቱኒዚያው ክለብ ሁለት ጊዜ ኳስ እና መረብን ማገናኘት ቢችልም ከጨዋታ ውጪ በመሆኑ ተሽሮበት ጨዋታው በ1-0 ውጤት ተፈፅሟል።</p><p>በዚህም የቡሩንዲው ቡማሙሩን በመርታት ለውድድሩ ሁለተኛ የቅድመ ማጣሪያ ጨዋታ ደርሶ የነበረው ፋሲል ከነማ በድምር ውጤት 1-0 ተሸንፎ የዘንድሮው የአህጉራዊ ውድድር ተሳትፎውን አጠናቋል።</p>	f	f	44f2f38e-8811-4517-90ae-3f6c43231ecd	0	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-17 09:59:30.284984	-infinity
+8339e666-cdc2-4af6-96a9-bc7bb4c5ee5e	አፄዎቹ ከአህጉራዊ ውድድር ውጪ ሆነዋል	ሚኬል ሳማኬ ድንቅ በነበረበት የካፍ ኮንፌዴሬሽን ዋንጫ 2ኛ ዙር ቅድመ ማጣሪያ የመልስ ጨዋታ ፋሲል ከነማ በሴፋክሲያን 1-0 ተሸንፏል።	Assets/News_upload_photo/8339e666-cdc2-4af6-96a9-bc7bb4c5ee5e.jpg	<p>ዓምና ሊጉን በሁለተኛ ደረጃ በማጠናቀቅ በካፍ ኮንፌዴሬሽን ዋንጫ ላይ ተሳታፊ የነበረው ፋሲል ከነማ ከቱኒዚያው ሴፋክሲያን ጋር ባህር ዳር ላይ ከነበረው የመጀመሪያ ጨዋታ ተከላካይ ክፍል ላይ አስቻለው ታመነን በመናፍ ዐወል በመተካት ብቻ ለመልሱ ግጥሚያ ወደ ሜዳ ገብቷል።</p><p><a href="https://betika.et/et/daily-jackpot?utm_medium=display&amp;utm_source=soccer-et&amp;utm_campaign=display_et_acq_amh_sb_daily_jackpot" rel="noopener noreferrer" target="_blank"><img src="https://soccerethiopia.net/wp-content/uploads/2022/09/Daily-Jackpot_900x110.png"></a></p><p>ጨዋታውን ከፍ ባለ ጫና የጀመሩት ሴፋክሲያኖች በተለይም በመጀመሪያዎቹ 20 ደቂቃዎች ተደጋጋሚ ከባድ ሙከራዎችን ማድረግ ችለዋል። በአንፃሩ በአመዛኙ በራሳቸው ሜዳ ያሳለፉት ፋሲሎች በሁለት አጋጣሚዎች ከቀኝ መስመር ለፍቃዱ ዓለሙ ካሻገሯቸው ኳሶች ብቻ ወደ ግብ መድረስ ችለው ነበር።</p><p>በአጋማሹ በድምሩ አምስት ኢላማቸውን የጠበቁ ሙከራዎችን አድርገው ሁለት ጊዜ ደግሞ በግቡ ብረቶች ሙከራዎቻቸው የተመለሱባቸው ሴፋክሲያኖች 39ኛው ደቂቃ ላይ በለስ ቀንቷቸዋል። በፋሲል ሳጥን መግቢያ ላይ ሁሴን ዓሊ እና አብደላ አምሪ አንድ ሁለት በመቀባበል አምሪ ያሳለፈለትን ኢስማኤል ዲያኬይት በግራ ሳጥን ውስጥ ገብቶ ግብ አድርጎታል።</p><p> <a href="https://ethsoccer.files.wordpress.com/2022/10/img_20221015_212232_333.jpg" rel="noopener noreferrer" target="_blank"><img src="https://ethsoccer.files.wordpress.com/2022/10/img_20221015_212232_333.jpg"></a></p><p>ሴፋክሲያኖች ከጨዋታ ብልጫ ባሻገር በተከተሉት የኃይል አጨዋወት በአጋማሹ በአራት አጋጣሚዎች የፋሲል ተጫዋቾች የህክምና እርዳታ እንዲያገኙ የሚያስገድዱ ጥፋቶችን መስራታቸውን ተከትሎ አፄዎቹ ዕረፍት መውጫው ላይ ስሜታዊ ሆነው ከአርቢትሮች ጋር የቃላት ልውውጥ ሲያደርጉ ተስተውሏል።</p><p>ከዕረፍት መልስ ፋሲል ከነማ የተሻለ መረጋጋት ሲታይበት በኳስ ቁጥጥሩ ረገድ ብልጫ ወስዷል። ሆኖም 55ኛ ደቂቃ ላይ ሀብታሙ ገዛኸኝ በግራ ሳጥን ውስጥ ደርሶ ካደረገው ሙከራ ሌላ አደጋ መፍጠር አልቻሉም። በአንፃሩ የመልሶ ማጥቃት ቁመና የታየባቸው ሴፋክሲያኖች ሚኬል ሳማኬ ከግብ ክልሉ ወጥቶ ካራቃቸው ሁለት ኳሶች ውጪ በቀዳሚዎቹ 20 ደቂቃዎች ከመጀመሪያው አጋማሽ አንፃር ጫናቸው ቀንሶ ታይቷል።</p><p><img src="https://soccerethiopia.net/wp-content/uploads/2022/02/Gofere1d-002.jpg"></p><p>ከ65ኛው ደቂቃ በኋላ ግን የጨዋታው መልክ እየተቀየረ የመጣ ሲሆን ሴፋክሲያኖች ደጋግመው ወደ ግብ የደረሱባቸው አጋጣሚዎች ታይተዋል። በተለይም 77ኛው ደቂቃ ላይ ሀሽራፍ ሀቢቢሲ ያደረገው ለጎል የቀረበ ሙከራ ድንቅ ሆኖ በዋለው ሚኬል ሳማኬ ቅልጥፍና ግብ ከመሆን ድኗል። የቡድኑ ጫና እስከመጨረሻው ደቂቃ ቀጥሎ ወደ ፍፃሜው ሲቃረብ የቱኒዚያው ክለብ ሁለት ጊዜ ኳስ እና መረብን ማገናኘት ቢችልም ከጨዋታ ውጪ በመሆኑ ተሽሮበት ጨዋታው በ1-0 ውጤት ተፈፅሟል።</p><p>በዚህም የቡሩንዲው ቡማሙሩን በመርታት ለውድድሩ ሁለተኛ የቅድመ ማጣሪያ ጨዋታ ደርሶ የነበረው ፋሲል ከነማ በድምር ውጤት 1-0 ተሸንፎ የዘንድሮው የአህጉራዊ ውድድር ተሳትፎውን አጠናቋል።</p>	f	f	7a752161-8940-4caf-aa77-b1c6469c14d2	0	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-17 10:03:40.423502	-infinity
+0e80bebf-7b65-4de6-ae68-abe1a57053b3	ሲዳማ ቡና አሠልጣኝ ሾሟል	ወንድማገኝ ተሾመን ያሰናበተው ሲዳማ ቡና በምትኩ አዲስ አሠልጣኝ ማግኘቱን ሶከር ኢትዮጵያ አረጋግጣለች።	Assets/News_upload_photo/0e80bebf-7b65-4de6-ae68-abe1a57053b3.jpg	<p>በተጠናቀቀው ቤትኪንግ ኢትዮጵያ ፕሪምየር ሊግ 3ኛ ደረጃን ይዞ የፈፀመው ሲዳማ ቡና በክረምቱ የተጫዋቾች የዝውውር መስኮት ራሱን ለማጠናከር ጥሮ የ2015 ውድድሩን ቢቀርብም ባሰበው መንገድ መጓዝ አልቻለም። ከሦስት ጨዋታዎችም በአንዱ ብቻ ነጥብ በማሳካት በደረጃ ሰንጠረዡ ግርጌ ላይ ተቀምጧል። ይህንን ተከትሎ የክለቡ ቦርድ አሠልጣኝ ወንድማገኝ ተሾመን ከመንበሩ ማንሳቱ ይታወቃል።</p><p><a href="https://betika.et/et/daily-jackpot?utm_medium=display&amp;utm_source=soccer-et&amp;utm_campaign=display_et_acq_amh_sb_daily_jackpot" rel="noopener noreferrer" target="_blank"><img src="https://soccerethiopia.net/wp-content/uploads/2022/09/Daily-Jackpot_900x110.png"></a></p><p>ቦታውን ለመረከብ ሦስት አሠልጣኞች ታጭተው የነበረ ሲሆን ድረ-ገፃችን አሁን ከክለቡ ጽሕፈት ቤት ባገኘችው መረጃ ግን አሠልጣኝ ሥዩም ከበደ ትናንት ምሽት ከክለቡ አመራሮች ጋር በአካል ሀዋሳ ላይ ንግግር ካደረጉ በኋላ በሁለት ዓመት ውል ኃላፊነቱን ለመቀበል ተስማምተዋል። በዚህም አሠልጣኙ ረፋድ ላይ አሁን ከሚገኙበት ሀዋሳ ወደ መዲናችን አዲስ አበባ ከተጓዙ በኋላ አመሻሽ ላይ ቡድኑ ወደሚገኝበት ባህር ዳር በማቅናት ትውውቅ እንደሚያደርጉ አረጋግጠናል።</p><p><img src="https://soccerethiopia.net/wp-content/uploads/2022/02/Gofere1d-002.jpg"></p>	f	f	44f2f38e-8811-4517-90ae-3f6c43231ecd	0	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-18 11:16:17.683819	2022-10-18 11:16:31.837454
+9cf2029a-cbcc-4b63-b47b-020baa5cbf81	አፄዎቹ ከአህጉራዊ ውድድር ውጪ ሆነዋል	ሚኬል ሳማኬ ድንቅ በነበረበት የካፍ ኮንፌዴሬሽን ዋንጫ 2ኛ ዙር ቅድመ ማጣሪያ የመልስ ጨዋታ ፋሲል ከነማ በሴፋክሲያን 1-0 ተሸንፏል።	Assets/News_upload_photo/9cf2029a-cbcc-4b63-b47b-020baa5cbf81.jpg	<p>ዓምና ሊጉን በሁለተኛ ደረጃ በማጠናቀቅ በካፍ ኮንፌዴሬሽን ዋንጫ ላይ ተሳታፊ የነበረው ፋሲል ከነማ ከቱኒዚያው ሴፋክሲያን ጋር ባህር ዳር ላይ ከነበረው የመጀመሪያ ጨዋታ ተከላካይ ክፍል ላይ አስቻለው ታመነን በመናፍ ዐወል በመተካት ብቻ ለመልሱ ግጥሚያ ወደ ሜዳ ገብቷል።</p><p><a href="https://betika.et/et/daily-jackpot?utm_medium=display&amp;utm_source=soccer-et&amp;utm_campaign=display_et_acq_amh_sb_daily_jackpot" rel="noopener noreferrer" target="_blank"><img src="https://soccerethiopia.net/wp-content/uploads/2022/09/Daily-Jackpot_900x110.png"></a></p><p>ጨዋታውን ከፍ ባለ ጫና የጀመሩት ሴፋክሲያኖች በተለይም በመጀመሪያዎቹ 20 ደቂቃዎች ተደጋጋሚ ከባድ ሙከራዎችን ማድረግ ችለዋል። በአንፃሩ በአመዛኙ በራሳቸው ሜዳ ያሳለፉት ፋሲሎች በሁለት አጋጣሚዎች ከቀኝ መስመር ለፍቃዱ ዓለሙ ካሻገሯቸው ኳሶች ብቻ ወደ ግብ መድረስ ችለው ነበር።</p><p>በአጋማሹ በድምሩ አምስት ኢላማቸውን የጠበቁ ሙከራዎችን አድርገው ሁለት ጊዜ ደግሞ በግቡ ብረቶች ሙከራዎቻቸው የተመለሱባቸው ሴፋክሲያኖች 39ኛው ደቂቃ ላይ በለስ ቀንቷቸዋል። በፋሲል ሳጥን መግቢያ ላይ ሁሴን ዓሊ እና አብደላ አምሪ አንድ ሁለት በመቀባበል አምሪ ያሳለፈለትን ኢስማኤል ዲያኬይት በግራ ሳጥን ውስጥ ገብቶ ግብ አድርጎታል።</p><p><a href="https://ethsoccer.files.wordpress.com/2022/10/img_20221015_212232_333.jpg" rel="noopener noreferrer" target="_blank"><img src="https://ethsoccer.files.wordpress.com/2022/10/img_20221015_212232_333.jpg"></a></p><p>ሴፋክሲያኖች ከጨዋታ ብልጫ ባሻገር በተከተሉት የኃይል አጨዋወት በአጋማሹ በአራት አጋጣሚዎች የፋሲል ተጫዋቾች የህክምና እርዳታ እንዲያገኙ የሚያስገድዱ ጥፋቶችን መስራታቸውን ተከትሎ አፄዎቹ ዕረፍት መውጫው ላይ ስሜታዊ ሆነው ከአርቢትሮች ጋር የቃላት ልውውጥ ሲያደርጉ ተስተውሏል።</p><p>ከዕረፍት መልስ ፋሲል ከነማ የተሻለ መረጋጋት ሲታይበት በኳስ ቁጥጥሩ ረገድ ብልጫ ወስዷል። ሆኖም 55ኛ ደቂቃ ላይ ሀብታሙ ገዛኸኝ በግራ ሳጥን ውስጥ ደርሶ ካደረገው ሙከራ ሌላ አደጋ መፍጠር አልቻሉም። በአንፃሩ የመልሶ ማጥቃት ቁመና የታየባቸው ሴፋክሲያኖች ሚኬል ሳማኬ ከግብ ክልሉ ወጥቶ ካራቃቸው ሁለት ኳሶች ውጪ በቀዳሚዎቹ 20 ደቂቃዎች ከመጀመሪያው አጋማሽ አንፃር ጫናቸው ቀንሶ ታይቷል።</p><p><img src="https://soccerethiopia.net/wp-content/uploads/2022/02/Gofere1d-002.jpg"></p><p>ከ65ኛው ደቂቃ በኋላ ግን የጨዋታው መልክ እየተቀየረ የመጣ ሲሆን ሴፋክሲያኖች ደጋግመው ወደ ግብ የደረሱባቸው አጋጣሚዎች ታይተዋል። በተለይም 77ኛው ደቂቃ ላይ ሀሽራፍ ሀቢቢሲ ያደረገው ለጎል የቀረበ ሙከራ ድንቅ ሆኖ በዋለው ሚኬል ሳማኬ ቅልጥፍና ግብ ከመሆን ድኗል። የቡድኑ ጫና እስከመጨረሻው ደቂቃ ቀጥሎ ወደ ፍፃሜው ሲቃረብ የቱኒዚያው ክለብ ሁለት ጊዜ ኳስ እና መረብን ማገናኘት ቢችልም ከጨዋታ ውጪ በመሆኑ ተሽሮበት ጨዋታው በ1-0 ውጤት ተፈፅሟል።</p><p>በዚህም የቡሩንዲው ቡማሙሩን በመርታት ለውድድሩ ሁለተኛ የቅድመ ማጣሪያ ጨዋታ ደርሶ የነበረው ፋሲል ከነማ በድምር ውጤት 1-0 ተሸንፎ የዘንድሮው የአህጉራዊ ውድድር ተሳትፎውን አጠናቋል።</p>	t	f	7a752161-8940-4caf-aa77-b1c6469c14d2	0	7a752161-8940-4caf-aa77-b1c6469c14d2	2022-10-17 15:27:20.833463	2022-10-18 11:12:34.015662
+69607dc3-3331-4561-a802-6ff07eecfe0b	አፄዎቹ ከአህጉራዊ ውድድር ውጪ ሆነዋል	ሚኬል ሳማኬ ድንቅ በነበረበት የካፍ ኮንፌዴሬሽን ዋንጫ 2ኛ ዙር ቅድመ ማጣሪያ የመልስ ጨዋታ ፋሲል ከነማ በሴፋክሲያን 1-0 ተሸንፏል።	Assets/News_upload_photo/69607dc3-3331-4561-a802-6ff07eecfe0b.jpg	<p>በተጠናቀቀው ቤትኪንግ ኢትዮጵያ ፕሪምየር ሊግ 3ኛ ደረጃን ይዞ የፈፀመው ሲዳማ ቡና በክረምቱ የተጫዋቾች የዝውውር መስኮት ራሱን ለማጠናከር ጥሮ የ2015 ውድድሩን ቢቀርብም ባሰበው መንገድ መጓዝ አልቻለም። ከሦስት ጨዋታዎችም በአንዱ ብቻ ነጥብ በማሳካት በደረጃ ሰንጠረዡ ግርጌ ላይ ተቀምጧል። ይህንን ተከትሎ የክለቡ ቦርድ አሠልጣኝ ወንድማገኝ ተሾመን ከመንበሩ ማንሳቱ ይታወቃል።</p>	f	f	44f2f38e-8811-4517-90ae-3f6c43231ecd	0	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-26 11:24:47.788225	-infinity
+ce806679-6aee-4db4-8d0c-8dfe5bb5d72a	ሲዳማ ቡና አሠልጣኙን ከሦስት ጨዋታዎች በኋላ አሰናብቷል	በዘንድሮ የሊጉ ውድድር የመጀመሪያው ተሰናባች አሠልጣኝ ወንድማገኝ ተሾመ ሆኗል።	Assets/News_upload_photo/ce806679-6aee-4db4-8d0c-8dfe5bb5d72a.jpg	<p><em>በዘንድሮ የሊጉ ውድድር የመጀመሪያው ተሰናባች አሠልጣኝ ወንድማገኝ ተሾመ ሆኗል።</em></p><p>የ2015 የቤትኪንግ ኢትዮጵያ ፕሪምየር ሊግ በባህርዳር ከተማ እየተደረገ ሦስተኛ የጨዋታ ሳምንቱን ተሻግሯል፡፡ በሊጉ ተሳትፎን እያደረጉ ከሚገኙ ክለቦች መካከል አንዱ የሆነው ሲዳማ ቡና እስከ አሁን ባደረጋቸው ጨዋታዎች በሁለቱ ተሸንፎ በአንዱ ብቻ ነጥብ በመጋራት በደረጃ ሰንጠረዡ ግርጌ ላይ ከተቀመጠ በኋላ የክለቡ ቦርድ አሰልጣኝ ወንድማገኝ ተሾመን ወደ ሀዋሳ እንደጠራ ዘገባ ሰርተን ነበር፡፡ ክለቡን በረዳት አሰልጣኝነት ሲመሩ ከነበረበት ኃላፊነት ክረምት ላይ ወደ ዋና አሰልጣኝነት መንበር እድገት አግኝተው የነበሩት ወንድማገኝ ክለቡ እያስመዘገበ ካለው ውጤት መነሻነት ገና በውላቸው መባቻ በይፋ ከክለቡ ጋር መለያየታቸውን ሶከር ኢትዮጵያ ማረጋገጥ ችላለች፡፡</p>	f	f	88c47da3-e414-48a0-8f2c-f831f1da845a	0	88c47da3-e414-48a0-8f2c-f831f1da845a	2022-10-26 11:27:11.99001	-infinity
+2a6f9a07-de34-40fb-9c23-49320c157524	df	sdfs	Assets/News_upload_photo/2a6f9a07-de34-40fb-9c23-49320c157524.jpg	<p>sdfsdfd</p>	f	f	88c47da3-e414-48a0-8f2c-f831f1da845a	0	88c47da3-e414-48a0-8f2c-f831f1da845a	2022-10-26 11:29:02.357275	-infinity
+\.
+
+
+--
+-- Data for Name: PlayerHistories; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."PlayerHistories" ("ID", "PlayerID", "PlayerId", "FromTeamId", "ToTeamId", "Date", "ContractLength", "createdBy", "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- Data for Name: PlayerStats; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."PlayerStats" ("ID", "PlayerID", "PlayerId", "TeamId", "Goals", "Assists", "YellowCard", "Minute", "RedCard", "createdBy", "createdAt", "updatedAt", "MatchId") FROM stdin;
+763227cf-8a0d-4353-943b-596e31f2e34e	\N	2b0c030d-b53c-4fc1-94ac-ca1f3c1123da	eea5b2a6-ce5b-4594-b93d-58d92ecbf631	0	0	1	2	0	00000000-0000-0000-0000-000000000000	2022-10-27 07:03:21.244778	-infinity	782540de-9abd-4f77-a20e-a0c44c6f70d0
+ebb03da3-eacb-446e-b2a7-3cf56829ab27	\N	2b0c030d-b53c-4fc1-94ac-ca1f3c1123da	eea5b2a6-ce5b-4594-b93d-58d92ecbf631	1	0	0	3	0	00000000-0000-0000-0000-000000000000	2022-10-27 07:03:40.273032	-infinity	782540de-9abd-4f77-a20e-a0c44c6f70d0
+933aa2c0-d948-48aa-9b10-570c778e36a8	\N	8deead41-dab6-4ca4-9029-ed19c307a4aa	65dfa00f-9683-4214-8a9a-0e7a7f954230	1	0	0	6	0	00000000-0000-0000-0000-000000000000	2022-10-27 07:03:56.128165	-infinity	782540de-9abd-4f77-a20e-a0c44c6f70d0
+700cff3a-dc80-4f82-b1b0-0bcca7d448ce	\N	2b0c030d-b53c-4fc1-94ac-ca1f3c1123da	eea5b2a6-ce5b-4594-b93d-58d92ecbf631	1	0	0	90	0	00000000-0000-0000-0000-000000000000	2022-10-27 07:04:37.569406	-infinity	782540de-9abd-4f77-a20e-a0c44c6f70d0
+afd20a58-9396-4633-9ba2-5779e4d10676	\N	2b0c030d-b53c-4fc1-94ac-ca1f3c1123da	eea5b2a6-ce5b-4594-b93d-58d92ecbf631	0	1	0	90	0	00000000-0000-0000-0000-000000000000	2022-10-27 07:04:49.832275	-infinity	782540de-9abd-4f77-a20e-a0c44c6f70d0
+b3101216-7293-433f-9623-bdde00b57523	\N	8deead41-dab6-4ca4-9029-ed19c307a4aa	65dfa00f-9683-4214-8a9a-0e7a7f954230	0	0	1	4	0	00000000-0000-0000-0000-000000000000	2022-10-27 07:33:23.536388	-infinity	2353cf05-51b3-4de1-841d-d111408e6dea
+a81a50bf-25a5-4565-bfff-c2eb40fdd0ee	\N	8deead41-dab6-4ca4-9029-ed19c307a4aa	65dfa00f-9683-4214-8a9a-0e7a7f954230	1	0	0	90	0	00000000-0000-0000-0000-000000000000	2022-10-27 07:40:44.490755	-infinity	2353cf05-51b3-4de1-841d-d111408e6dea
+\.
+
+
+--
+-- Data for Name: Players; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."Players" ("ID", "FullName", "PlayerImage", "Height", "Weight", "CurrentTeamId", "Postition", "BirthDate", "createdBy", "createdAt", "updatedAt", "CurrentTeamID", "Description", "Nationality") FROM stdin;
+30fd63f7-17b6-474a-84d5-cca188718f99	Bezabeh Meleyo	Assets/Player_upload_photo/30fd63f7-17b6-474a-84d5-cca188718f99.jpg	172	68	eea5b2a6-ce5b-4594-b93d-58d92ecbf631	7	2022-10-18 00:00:00	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-24 12:03:24.956206	-infinity	\N	<p>Bezabeh Meleyo Mekengo is an Ethiopian professional footballer who plays as an attacking midfielder for the Ethiopian club Fasil Kenema, and the Ethiopia national team</p>	Ethiopia
+8deead41-dab6-4ca4-9029-ed19c307a4aa	Getoch panno	Assets/Player_upload_photo/8deead41-dab6-4ca4-9029-ed19c307a4aa.jpg	190	60	65dfa00f-9683-4214-8a9a-0e7a7f954230	8	2022-10-18 00:00:00	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-24 12:33:09.905595	-infinity	\N	<p>Gatoch Panom Yiech is an Ethiopian professional footballer who plays as a midfielder for Saint George S.C. and the Ethiopia national team</p>	Ethiopia
+7729a1df-23ab-48ad-9366-9ca0b4ba4649	kirubel gizaw	Assets/Player_upload_photo/7729a1df-23ab-48ad-9366-9ca0b4ba4649.jpg	178	58	3b842c70-e5f6-49e7-ba5d-809d87161be9	11	2022-10-25 00:00:00	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-25 13:47:18.967513	-infinity	\N	\N	Ethiopia
+2b0c030d-b53c-4fc1-94ac-ca1f3c1123da	Surafel Dagnachew	Assets/Player_upload_photo/2b0c030d-b53c-4fc1-94ac-ca1f3c1123da.png	178	58	eea5b2a6-ce5b-4594-b93d-58d92ecbf631	7	-infinity	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-24 11:32:33.209595	-infinity	\N	<p>400</p><p>Bad Request</p>	Ethiopia
+\.
+
+
+--
+-- Data for Name: SeasonTeams; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."SeasonTeams" ("ID", "TeamId", "SeasonId", "createdBy", "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- Data for Name: Seasons; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."Seasons" ("ID", "Name", "Year", "FromDate", "ToDate", "IsActive", "createdBy", "createdAt", "updatedAt") FROM stdin;
+5b5e231b-31c1-4901-938c-af6cd3bfee7c	Betking	2015	2022-10-06	2022-10-14	t	e9a7038c-77e1-402a-a1b3-c49ea6c62763	-infinity	-infinity
+\.
+
+
+--
+-- Data for Name: SubscribedUsers; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."SubscribedUsers" ("ID", email, "subscribedDate") FROM stdin;
+\.
+
+
+--
+-- Data for Name: Teams; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."Teams" ("ID", "Name", "ShortName", "Logo", "SeasonId", "Played", "Win", "Draw", "Lost", "GoalForward", "GoalAgainst", "Point", "createdBy", "createdAt", "updatedAt") FROM stdin;
+65dfa00f-9683-4214-8a9a-0e7a7f954230	Saint George	STG	Assets/Team_upload_photo/65dfa00f-9683-4214-8a9a-0e7a7f954230.png	5b5e231b-31c1-4901-938c-af6cd3bfee7c	0	0	0	0	0	0	0	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-20 12:39:52.840201	-infinity
+2b097d63-919d-4e4b-9c28-348a170518b5	Bahir Dar Kenema F.C	BDR	Assets/Team_upload_photo/2b097d63-919d-4e4b-9c28-348a170518b5.png	5b5e231b-31c1-4901-938c-af6cd3bfee7c	0	0	0	0	0	0	0	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 13:36:14.086159	-infinity
+3b842c70-e5f6-49e7-ba5d-809d87161be9	Hawssa Kenema	HAH	Assets/Team_upload_photo/00000000-0000-0000-0000-000000000000.jpg	5b5e231b-31c1-4901-938c-af6cd3bfee7c	0	0	0	0	0	0	0	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-21 13:37:19.853379	-infinity
+eea5b2a6-ce5b-4594-b93d-58d92ecbf631	Fasil Kenema	FSK	Assets/Team_upload_photo/eea5b2a6-ce5b-4594-b93d-58d92ecbf631.jpg	5b5e231b-31c1-4901-938c-af6cd3bfee7c	0	0	0	0	0	0	0	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-20 14:54:23.765948	-infinity
+\.
+
+
+--
+-- Data for Name: TmretExecutives; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."TmretExecutives" ("ID", "TemretId", "Name", "Position", "UserPhoto", "Description", "BirthDate", "IsActive", "FromDate", "ToDate", "InActiveDescription", "createdBy", "createdAt", "updatedAt") FROM stdin;
+56e4b92b-a918-4060-aefc-48849880c07a	44f2f38e-8811-4517-90ae-3f6c43231ecd	Denekew Berihun	Executive	Assets/Executives_upload_photo/56e4b92b-a918-4060-aefc-48849880c07a.jpg	<p>ከ65ኛው ደቂቃ በኋላ ግን የጨዋታው መልክ እየተቀየረ የመጣ ሲሆን ሴፋክሲያኖች ደጋግመው ወደ ግብ የደረሱባቸው አጋጣሚዎች ታይተዋል። በተለይም 77ኛው ደቂቃ ላይ ሀሽራፍ ሀቢቢሲ ያደረገው ለጎል የቀረበ ሙከራ ድንቅ ሆኖ በዋለው ሚኬል ሳማኬ ቅልጥፍና ግብ ከመሆን ድኗል። የቡድኑ ጫና እስከመጨረሻው ደቂቃ ቀጥሎ ወደ ፍፃሜው ሲቃረብ የቱኒዚያው ክለብ ሁለት ጊዜ ኳስ እና መረብን ማገናኘት ቢችልም ከጨዋታ ውጪ በመሆኑ ተሽሮበት ጨዋታው በ1-0 ውጤት ተፈፅሟል።</p>	2022-10-10	t	2022-10-03	2022-10-29	\N	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-17 15:49:54.991319	-infinity
+400eb9b8-b659-46ff-9039-6952b2d44e9f	44f2f38e-8811-4517-90ae-3f6c43231ecd	Emnet Emnemelek	Executive	Assets/Executives_upload_photo/400eb9b8-b659-46ff-9039-6952b2d44e9f.jpg	<p>null</p>	2022-10-17	t	2022-10-17	2022-10-22	\N	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-18 16:25:21.86031	-infinity
+\.
+
+
+--
+-- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."Users" ("ID", "fullName", email, "isActive", "userRole", password, "createdBy", "createdAt", "updatedAt") FROM stdin;
+88c47da3-e414-48a0-8f2c-f831f1da845a	Mahber 2	mahber2@mahber.com	t	1	$2a$11$rt/km4XiJVwvalziFG0.RuIQh4UchiDyCTh.JliGcm0YAgQUP5BUm	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-17 08:36:52.218491	-infinity
+eeb5a311-7f5d-417f-a610-57d80d4c17ef	Mahber 3	mahber3@mahber.com	t	1	$2a$11$oW/UNEM/QiNuGZQ7nAlqeeScyWkvZbQ/iTihjpPt42K1rUoMnSzkO	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-17 16:15:35.37662	-infinity
+7a752161-8940-4caf-aa77-b1c6469c14d2	mahber1	mahber1@mahber.com	t	1	$2a$11$rt/km4XiJVwvalziFG0.RuIQh4UchiDyCTh.JliGcm0YAgQUP5BUm	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-17 08:36:33.715945	-infinity
+8dcd99d7-fd3e-4310-a034-c41d91a70827	mahber4	mahber@mahber.com	t	1	$2a$11$I6Wkr1J8.4ABqbNiT0LvBuhG95PYPbyapEY8GV5Anky.8mvs0EjZS	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-19 15:51:34.517922	-infinity
+44f2f38e-8811-4517-90ae-3f6c43231ecd	ጥምረት	tmret@tmret.com	t	0	$2a$11$YQ4PnpI2IObivvUPEsiFfOMw2cyAT5V0MdpgkbDN/lDhg309O99KC	44f2f38e-8811-4517-90ae-3f6c43231ecd	2022-10-17 08:35:49.746386	-infinity
+e9a7038c-77e1-402a-a1b3-c49ea6c62763	encoder	encoder@encoder.com	t	2	$2a$11$XzWztRzkm/eSFYaqVA0s6.T1psFEMtbuNE8REIP7cGrDVfnHqi2dm	e9a7038c-77e1-402a-a1b3-c49ea6c62763	2022-10-20 08:49:51.468166	-infinity
+\.
+
+
+--
+-- Data for Name: __EFMigrationsHistory; Type: TABLE DATA; Schema: public; Owner: sa
+--
+
+COPY public."__EFMigrationsHistory" ("MigrationId", "ProductVersion") FROM stdin;
+20221017053422_initial	6.0.8
+20221017061707_mahberexec	6.0.8
+20221017064518_mahberexec2	6.0.8
+20221017072313_degafi	6.0.8
+20221017081711_degafiUpdate	6.0.8
+20221019131438_phoneDegai	6.0.8
+20221019131538_phoneDegai2	6.0.8
+20221020070905_encoder	6.0.8
+20221020150827_updateall	6.0.8
+20221021053316_matchweeek	6.0.8
+20221021054954_matchweeek2	6.0.8
+20221021080023_matchweek	6.0.8
+20221021091151_mahebrexec2	6.0.8
+20221021091215_mahebrexec3	6.0.8
+20221024091505_player	6.0.8
+20221024112250_player2	6.0.8
+20221025054910_ma	6.0.8
+20221025143453_playerstat	6.0.8
+20221025143559_playerstat2	6.0.8
+20221026054128_playerstatmatchid	6.0.8
+20221026055434_playerstatmatchid2	6.0.8
+20221027065212_teaminmatch	6.0.8
+\.
+
+
+--
+-- Name: Advertisements PK_Advertisements; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Advertisements"
+    ADD CONSTRAINT "PK_Advertisements" PRIMARY KEY ("ID");
+
+
+--
+-- Name: DefafiMahbers PK_DefafiMahbers; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."DefafiMahbers"
+    ADD CONSTRAINT "PK_DefafiMahbers" PRIMARY KEY ("ID");
+
+
+--
+-- Name: Degafi PK_Degafi; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Degafi"
+    ADD CONSTRAINT "PK_Degafi" PRIMARY KEY ("ID");
+
+
+--
+-- Name: DegafiMahberMembers PK_DegafiMahberMembers; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."DegafiMahberMembers"
+    ADD CONSTRAINT "PK_DegafiMahberMembers" PRIMARY KEY ("ID");
+
+
+--
+-- Name: DegafiSettings PK_DegafiSettings; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."DegafiSettings"
+    ADD CONSTRAINT "PK_DegafiSettings" PRIMARY KEY ("ID");
+
+
+--
+-- Name: MacthStats PK_MacthStats; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."MacthStats"
+    ADD CONSTRAINT "PK_MacthStats" PRIMARY KEY ("ID");
+
+
+--
+-- Name: MahberExecutives PK_MahberExecutives; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."MahberExecutives"
+    ADD CONSTRAINT "PK_MahberExecutives" PRIMARY KEY ("ID");
+
+
+--
+-- Name: MatchWeeks PK_MatchWeeks; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."MatchWeeks"
+    ADD CONSTRAINT "PK_MatchWeeks" PRIMARY KEY ("ID");
+
+
+--
+-- Name: Matches PK_Matches; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Matches"
+    ADD CONSTRAINT "PK_Matches" PRIMARY KEY ("ID");
+
+
+--
+-- Name: News PK_News; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."News"
+    ADD CONSTRAINT "PK_News" PRIMARY KEY ("ID");
+
+
+--
+-- Name: PlayerHistories PK_PlayerHistories; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."PlayerHistories"
+    ADD CONSTRAINT "PK_PlayerHistories" PRIMARY KEY ("ID");
+
+
+--
+-- Name: PlayerStats PK_PlayerStats; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."PlayerStats"
+    ADD CONSTRAINT "PK_PlayerStats" PRIMARY KEY ("ID");
+
+
+--
+-- Name: Players PK_Players; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Players"
+    ADD CONSTRAINT "PK_Players" PRIMARY KEY ("ID");
+
+
+--
+-- Name: SeasonTeams PK_SeasonTeams; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."SeasonTeams"
+    ADD CONSTRAINT "PK_SeasonTeams" PRIMARY KEY ("ID");
+
+
+--
+-- Name: Seasons PK_Seasons; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Seasons"
+    ADD CONSTRAINT "PK_Seasons" PRIMARY KEY ("ID");
+
+
+--
+-- Name: SubscribedUsers PK_SubscribedUsers; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."SubscribedUsers"
+    ADD CONSTRAINT "PK_SubscribedUsers" PRIMARY KEY ("ID");
+
+
+--
+-- Name: Teams PK_Teams; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Teams"
+    ADD CONSTRAINT "PK_Teams" PRIMARY KEY ("ID");
+
+
+--
+-- Name: TmretExecutives PK_TmretExecutives; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."TmretExecutives"
+    ADD CONSTRAINT "PK_TmretExecutives" PRIMARY KEY ("ID");
+
+
+--
+-- Name: Users PK_Users; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT "PK_Users" PRIMARY KEY ("ID");
+
+
+--
+-- Name: __EFMigrationsHistory PK___EFMigrationsHistory; Type: CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."__EFMigrationsHistory"
+    ADD CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId");
+
+
+--
+-- Name: IX_DefafiMahbers_UserId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_DefafiMahbers_UserId" ON public."DefafiMahbers" USING btree ("UserId");
+
+
+--
+-- Name: IX_DegafiMahberMembers_DegafiMahberId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_DegafiMahberMembers_DegafiMahberId" ON public."DegafiMahberMembers" USING btree ("DegafiMahberId");
+
+
+--
+-- Name: IX_DegafiSettings_mahberId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_DegafiSettings_mahberId" ON public."DegafiSettings" USING btree ("mahberId");
+
+
+--
+-- Name: IX_Degafi_DegafiSettingId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_Degafi_DegafiSettingId" ON public."Degafi" USING btree ("DegafiSettingId");
+
+
+--
+-- Name: IX_Degafi_MahberId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_Degafi_MahberId" ON public."Degafi" USING btree ("MahberId");
+
+
+--
+-- Name: IX_MacthStats_MatchID; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_MacthStats_MatchID" ON public."MacthStats" USING btree ("MatchID");
+
+
+--
+-- Name: IX_MacthStats_MatchId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_MacthStats_MatchId" ON public."MacthStats" USING btree ("MatchId");
+
+
+--
+-- Name: IX_MacthStats_PlayerID; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_MacthStats_PlayerID" ON public."MacthStats" USING btree ("PlayerID");
+
+
+--
+-- Name: IX_MacthStats_PlayerId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_MacthStats_PlayerId" ON public."MacthStats" USING btree ("PlayerId");
+
+
+--
+-- Name: IX_MacthStats_TeamId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_MacthStats_TeamId" ON public."MacthStats" USING btree ("TeamId");
+
+
+--
+-- Name: IX_MahberExecutives_MahberID; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_MahberExecutives_MahberID" ON public."MahberExecutives" USING btree ("MahberID");
+
+
+--
+-- Name: IX_MahberExecutives_MahberId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_MahberExecutives_MahberId" ON public."MahberExecutives" USING btree ("MahberId");
+
+
+--
+-- Name: IX_MatchWeeks_matchWeek; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE UNIQUE INDEX "IX_MatchWeeks_matchWeek" ON public."MatchWeeks" USING btree ("matchWeek");
+
+
+--
+-- Name: IX_Matches_MatchWeekId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_Matches_MatchWeekId" ON public."Matches" USING btree ("MatchWeekId");
+
+
+--
+-- Name: IX_Matches_SeasonsId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_Matches_SeasonsId" ON public."Matches" USING btree ("SeasonsId");
+
+
+--
+-- Name: IX_Matches_Team1Id; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_Matches_Team1Id" ON public."Matches" USING btree ("Team1Id");
+
+
+--
+-- Name: IX_Matches_Team2Id; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_Matches_Team2Id" ON public."Matches" USING btree ("Team2Id");
+
+
+--
+-- Name: IX_News_userId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_News_userId" ON public."News" USING btree ("userId");
+
+
+--
+-- Name: IX_PlayerHistories_FromTeamId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_PlayerHistories_FromTeamId" ON public."PlayerHistories" USING btree ("FromTeamId");
+
+
+--
+-- Name: IX_PlayerHistories_PlayerID; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_PlayerHistories_PlayerID" ON public."PlayerHistories" USING btree ("PlayerID");
+
+
+--
+-- Name: IX_PlayerHistories_PlayerId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_PlayerHistories_PlayerId" ON public."PlayerHistories" USING btree ("PlayerId");
+
+
+--
+-- Name: IX_PlayerHistories_ToTeamId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_PlayerHistories_ToTeamId" ON public."PlayerHistories" USING btree ("ToTeamId");
+
+
+--
+-- Name: IX_PlayerStats_MatchId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_PlayerStats_MatchId" ON public."PlayerStats" USING btree ("MatchId");
+
+
+--
+-- Name: IX_PlayerStats_PlayerID; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_PlayerStats_PlayerID" ON public."PlayerStats" USING btree ("PlayerID");
+
+
+--
+-- Name: IX_PlayerStats_PlayerId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_PlayerStats_PlayerId" ON public."PlayerStats" USING btree ("PlayerId");
+
+
+--
+-- Name: IX_PlayerStats_TeamId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_PlayerStats_TeamId" ON public."PlayerStats" USING btree ("TeamId");
+
+
+--
+-- Name: IX_Players_CurrentTeamID; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_Players_CurrentTeamID" ON public."Players" USING btree ("CurrentTeamID");
+
+
+--
+-- Name: IX_Players_CurrentTeamId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_Players_CurrentTeamId" ON public."Players" USING btree ("CurrentTeamId");
+
+
+--
+-- Name: IX_SeasonTeams_SeasonId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_SeasonTeams_SeasonId" ON public."SeasonTeams" USING btree ("SeasonId");
+
+
+--
+-- Name: IX_SeasonTeams_TeamId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_SeasonTeams_TeamId" ON public."SeasonTeams" USING btree ("TeamId");
+
+
+--
+-- Name: IX_Teams_SeasonId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_Teams_SeasonId" ON public."Teams" USING btree ("SeasonId");
+
+
+--
+-- Name: IX_TmretExecutives_TemretId; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE INDEX "IX_TmretExecutives_TemretId" ON public."TmretExecutives" USING btree ("TemretId");
+
+
+--
+-- Name: IX_Users_email; Type: INDEX; Schema: public; Owner: sa
+--
+
+CREATE UNIQUE INDEX "IX_Users_email" ON public."Users" USING btree (email);
+
+
+--
+-- Name: DefafiMahbers FK_DefafiMahbers_Users_UserId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."DefafiMahbers"
+    ADD CONSTRAINT "FK_DefafiMahbers_Users_UserId" FOREIGN KEY ("UserId") REFERENCES public."Users"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: DegafiMahberMembers FK_DegafiMahberMembers_DefafiMahbers_DegafiMahberId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."DegafiMahberMembers"
+    ADD CONSTRAINT "FK_DegafiMahberMembers_DefafiMahbers_DegafiMahberId" FOREIGN KEY ("DegafiMahberId") REFERENCES public."DefafiMahbers"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: DegafiSettings FK_DegafiSettings_DefafiMahbers_mahberId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."DegafiSettings"
+    ADD CONSTRAINT "FK_DegafiSettings_DefafiMahbers_mahberId" FOREIGN KEY ("mahberId") REFERENCES public."DefafiMahbers"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: Degafi FK_Degafi_DefafiMahbers_MahberId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Degafi"
+    ADD CONSTRAINT "FK_Degafi_DefafiMahbers_MahberId" FOREIGN KEY ("MahberId") REFERENCES public."DefafiMahbers"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: Degafi FK_Degafi_DegafiSettings_DegafiSettingId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Degafi"
+    ADD CONSTRAINT "FK_Degafi_DegafiSettings_DegafiSettingId" FOREIGN KEY ("DegafiSettingId") REFERENCES public."DegafiSettings"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: MacthStats FK_MacthStats_Matches_MatchID; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."MacthStats"
+    ADD CONSTRAINT "FK_MacthStats_Matches_MatchID" FOREIGN KEY ("MatchID") REFERENCES public."Matches"("ID");
+
+
+--
+-- Name: MacthStats FK_MacthStats_Matches_MatchId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."MacthStats"
+    ADD CONSTRAINT "FK_MacthStats_Matches_MatchId" FOREIGN KEY ("MatchId") REFERENCES public."Matches"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: MacthStats FK_MacthStats_Players_PlayerID; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."MacthStats"
+    ADD CONSTRAINT "FK_MacthStats_Players_PlayerID" FOREIGN KEY ("PlayerID") REFERENCES public."Players"("ID");
+
+
+--
+-- Name: MacthStats FK_MacthStats_Players_PlayerId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."MacthStats"
+    ADD CONSTRAINT "FK_MacthStats_Players_PlayerId" FOREIGN KEY ("PlayerId") REFERENCES public."Players"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: MacthStats FK_MacthStats_Teams_TeamId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."MacthStats"
+    ADD CONSTRAINT "FK_MacthStats_Teams_TeamId" FOREIGN KEY ("TeamId") REFERENCES public."Teams"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: MahberExecutives FK_MahberExecutives_DefafiMahbers_MahberID; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."MahberExecutives"
+    ADD CONSTRAINT "FK_MahberExecutives_DefafiMahbers_MahberID" FOREIGN KEY ("MahberID") REFERENCES public."DefafiMahbers"("ID");
+
+
+--
+-- Name: MahberExecutives FK_MahberExecutives_DefafiMahbers_MahberId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."MahberExecutives"
+    ADD CONSTRAINT "FK_MahberExecutives_DefafiMahbers_MahberId" FOREIGN KEY ("MahberId") REFERENCES public."DefafiMahbers"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: Matches FK_Matches_MatchWeeks_MatchWeekId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Matches"
+    ADD CONSTRAINT "FK_Matches_MatchWeeks_MatchWeekId" FOREIGN KEY ("MatchWeekId") REFERENCES public."MatchWeeks"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: Matches FK_Matches_Seasons_SeasonsId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Matches"
+    ADD CONSTRAINT "FK_Matches_Seasons_SeasonsId" FOREIGN KEY ("SeasonsId") REFERENCES public."Seasons"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: Matches FK_Matches_Teams_Team1Id; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Matches"
+    ADD CONSTRAINT "FK_Matches_Teams_Team1Id" FOREIGN KEY ("Team1Id") REFERENCES public."Teams"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: Matches FK_Matches_Teams_Team2Id; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Matches"
+    ADD CONSTRAINT "FK_Matches_Teams_Team2Id" FOREIGN KEY ("Team2Id") REFERENCES public."Teams"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: News FK_News_Users_userId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."News"
+    ADD CONSTRAINT "FK_News_Users_userId" FOREIGN KEY ("userId") REFERENCES public."Users"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: PlayerHistories FK_PlayerHistories_Players_PlayerID; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."PlayerHistories"
+    ADD CONSTRAINT "FK_PlayerHistories_Players_PlayerID" FOREIGN KEY ("PlayerID") REFERENCES public."Players"("ID");
+
+
+--
+-- Name: PlayerHistories FK_PlayerHistories_Players_PlayerId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."PlayerHistories"
+    ADD CONSTRAINT "FK_PlayerHistories_Players_PlayerId" FOREIGN KEY ("PlayerId") REFERENCES public."Players"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: PlayerHistories FK_PlayerHistories_Teams_FromTeamId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."PlayerHistories"
+    ADD CONSTRAINT "FK_PlayerHistories_Teams_FromTeamId" FOREIGN KEY ("FromTeamId") REFERENCES public."Teams"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: PlayerHistories FK_PlayerHistories_Teams_ToTeamId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."PlayerHistories"
+    ADD CONSTRAINT "FK_PlayerHistories_Teams_ToTeamId" FOREIGN KEY ("ToTeamId") REFERENCES public."Teams"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: PlayerStats FK_PlayerStats_Matches_MatchId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."PlayerStats"
+    ADD CONSTRAINT "FK_PlayerStats_Matches_MatchId" FOREIGN KEY ("MatchId") REFERENCES public."Matches"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: PlayerStats FK_PlayerStats_Players_PlayerID; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."PlayerStats"
+    ADD CONSTRAINT "FK_PlayerStats_Players_PlayerID" FOREIGN KEY ("PlayerID") REFERENCES public."Players"("ID");
+
+
+--
+-- Name: PlayerStats FK_PlayerStats_Players_PlayerId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."PlayerStats"
+    ADD CONSTRAINT "FK_PlayerStats_Players_PlayerId" FOREIGN KEY ("PlayerId") REFERENCES public."Players"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: PlayerStats FK_PlayerStats_Teams_TeamId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."PlayerStats"
+    ADD CONSTRAINT "FK_PlayerStats_Teams_TeamId" FOREIGN KEY ("TeamId") REFERENCES public."Teams"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: Players FK_Players_Teams_CurrentTeamID; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Players"
+    ADD CONSTRAINT "FK_Players_Teams_CurrentTeamID" FOREIGN KEY ("CurrentTeamID") REFERENCES public."Teams"("ID");
+
+
+--
+-- Name: Players FK_Players_Teams_CurrentTeamId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Players"
+    ADD CONSTRAINT "FK_Players_Teams_CurrentTeamId" FOREIGN KEY ("CurrentTeamId") REFERENCES public."Teams"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: SeasonTeams FK_SeasonTeams_Seasons_SeasonId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."SeasonTeams"
+    ADD CONSTRAINT "FK_SeasonTeams_Seasons_SeasonId" FOREIGN KEY ("SeasonId") REFERENCES public."Seasons"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: SeasonTeams FK_SeasonTeams_Teams_TeamId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."SeasonTeams"
+    ADD CONSTRAINT "FK_SeasonTeams_Teams_TeamId" FOREIGN KEY ("TeamId") REFERENCES public."Teams"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: Teams FK_Teams_Seasons_SeasonId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."Teams"
+    ADD CONSTRAINT "FK_Teams_Seasons_SeasonId" FOREIGN KEY ("SeasonId") REFERENCES public."Seasons"("ID") ON DELETE CASCADE;
+
+
+--
+-- Name: TmretExecutives FK_TmretExecutives_Users_TemretId; Type: FK CONSTRAINT; Schema: public; Owner: sa
+--
+
+ALTER TABLE ONLY public."TmretExecutives"
+    ADD CONSTRAINT "FK_TmretExecutives_Users_TemretId" FOREIGN KEY ("TemretId") REFERENCES public."Users"("ID") ON DELETE CASCADE;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
